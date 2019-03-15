@@ -17,12 +17,10 @@ const displayClickCount = document.querySelector('#click-count');
 const status = document.querySelector('#status');
 const clickCountText = document.querySelector('#click-p');
 
-const generatePositionX = () => {
-  return Math.floor(Math.random() * (((playingAreaWidth - potWidth) - potWidth) + potWidth));
-}
-
-const generatePositionY = () => {
-  return Math.floor(Math.random() * (((playingAreaHeight - potHeight) - potHeight) + potHeight));
+const generatePosition = (axis) => {
+  if (axis === 'x') return Math.floor(Math.random() * (((playingAreaWidth - potWidth) - potWidth) + potWidth));
+  if (axis === 'y') return Math.floor(Math.random() * (((playingAreaHeight - potHeight) - potHeight) + potHeight));
+  else throw Error('function generatePosition -> invalid parameter');
 }
 
 const getResult = (xClick, yClick, xPot, yPot) => {
@@ -46,8 +44,8 @@ const updateStatus = (newStatus) => {
 }
 
 const firstClick = () => {
-  potPositionX = generatePositionX();
-  potPositionY = generatePositionY();
+  potPositionX = generatePosition('x');
+  potPositionY = generatePosition('y');
   pot.style.left = potPositionX + 'px';
   pot.style.top = potPositionY + 'px';
   clickCountText.style.visibility = 'visible';
